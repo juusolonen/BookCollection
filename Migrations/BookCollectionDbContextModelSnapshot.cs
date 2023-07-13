@@ -30,6 +30,7 @@ namespace BookCollection.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Publisher")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Title")

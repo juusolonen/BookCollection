@@ -8,9 +8,16 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 //Delete dbFile for a fresh start every time
-//string path = Directory.GetCurrentDirectory();
-//string dbFile = Directory.GetFiles(path, "*.db").First();
-//File.Delete(dbFile);
+try
+{
+    string path = Directory.GetCurrentDirectory();
+    string dbFile = Directory.GetFiles(path, "*.db").First();
+    File.Delete(dbFile);
+} catch
+{
+    //No file found, no need to do anything
+}
+
 
 builder.Services.AddDbContext<BookCollectionDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
