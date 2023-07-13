@@ -40,15 +40,28 @@ namespace BookCollection.Controllers
             return Ok(response);
         }
 
-        //  [HttpGet("Books")]
-        //  [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Db.BookDbEntity[]))]
-        //  [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        // public async Task<IActionResult> GetBooksAsync()
-        // {
-        //return  BadRequest();
-        //var books = await _bookService.GetBooksAsync();
+        [HttpGet("Books")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(GetBooksResponse))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> GetBooksAsync(string? author, int? year, string? publisher)
+        {
+            if (!QueryIsValid(author, year, publisher))
+            {
+              return  BadRequest();
+            }
 
-        //return Ok(books);
-        // }
+            var books = await _bookService.GetBooksAsync(author, year, publisher);
+
+            return Ok(books);
+        }
+
+        private bool QueryIsValid(string? author, int? year, string? publisher)
+        {
+            var authorIsValid = (author == null) || author != string.Empty;
+            var yearIsValid = (year == null) || year is int;
+            var publisherIsValid = (publisher == null) || publisher != string.Empty;
+
+            return authorIsValid && yearIsValid && publisherIsValid;
+        }
     }
 }

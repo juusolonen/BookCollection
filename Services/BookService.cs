@@ -35,9 +35,9 @@ namespace BookCollection.Services
         }
 
 
-        public async Task<BookDbEntity[]> GetBooksAsync()
+        public async Task<BookDbEntity[]> GetBooksAsync(string? author, int? year, string? publisher)
         {
-            return await dbService.GetBooksAsync();
+            return await dbService.GetBooksAsync(author, year, publisher);
         }
     }
 }
