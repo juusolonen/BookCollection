@@ -12,7 +12,14 @@ namespace BookCollection.Middlewares
 
         public void OnResourceExecuting(ResourceExecutingContext context)
         {
-            if (!int.TryParse(context.HttpContext.Request.RouteValues["bookId"]?.ToString(), out _))
+            int value;
+
+            if (!int.TryParse(context.HttpContext.Request.RouteValues["bookId"]?.ToString(), out value))
+            {
+                context.Result = new NotFoundObjectResult(null);
+            }
+
+            if (value == default)
             {
                 context.Result = new NotFoundObjectResult(null);
             }

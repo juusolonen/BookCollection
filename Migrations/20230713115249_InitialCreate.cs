@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-#nullable disable
+#nullable enable
 
 namespace BookCollection.Migrations
 {
@@ -19,7 +19,7 @@ namespace BookCollection.Migrations
                     Title = table.Column<string>(type: "TEXT", nullable: false),
                     Author = table.Column<string>(type: "TEXT", nullable: false),
                     Year = table.Column<int>(type: "INTEGER", nullable: false),
-                    Publisher = table.Column<string>(type: "TEXT", nullable: true),
+                    Publisher = table.Column<string?>(type: "TEXT", maxLength: 256, nullable: true),
                     Description = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>

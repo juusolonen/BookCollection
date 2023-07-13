@@ -13,11 +13,22 @@ namespace BookCollection.Services
 
         public async Task<int?> AddBookAsync(AddBookRequest request)
         {
+            var isValid = (!string.IsNullOrWhiteSpace(request.Title)
+                && !string.IsNullOrWhiteSpace(request.Author)
+                && (request.Year.HasValue && request.Year is int)
+                && (request.Publisher != string.Empty)
+                && (request.Description != string.Empty));
+
+            if(!isValid )
+            {
+                return null;
+            }
+
             var newBook = new BookDbEntity
             {
                 Title = request.Title,
                 Author = request.Author,
-                Year = request.Year,
+                Year = request.Year!.Value,
                 Publisher = request.Publisher,
                 Description = request.Description,
             };

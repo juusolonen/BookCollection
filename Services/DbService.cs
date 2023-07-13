@@ -1,7 +1,9 @@
 ﻿using BookCollection.Db;
 using BookCollection.Db.Entities;
 using Microsoft.EntityFrameworkCore;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+
+
+#nullable enable
 
 namespace BookCollection.Services
 {
@@ -25,7 +27,7 @@ namespace BookCollection.Services
 
             if (author != null)
             {
-                query = query.Where(x => x.Author == author);
+                query = query.Where(x => x.Author.ToLower() == author.ToLower());
             }
 
             if (year != null)
@@ -35,7 +37,7 @@ namespace BookCollection.Services
 
             if (publisher != null)
             {
-                query = query.Where(x => x.Publisher == publisher);
+                query = query.Where(x => x.Publisher != null && x.Publisher.ToLower() == publisher.ToLower());
             }
 
             return await query.ToArrayAsync();

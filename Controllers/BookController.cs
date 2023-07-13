@@ -24,9 +24,10 @@ namespace BookCollection.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(AddBookRequest))]
         public async Task<IActionResult> AddBookAsync([FromBody] AddBookRequest request)
         {
+            
             var response = new AddBookResponse();
 
-            if (request == null || !request.IsValid())
+            if (request == null)
             {
                 return BadRequest($"Request is not valid: {JsonSerializer.Serialize(request)}");
             }
@@ -61,7 +62,7 @@ namespace BookCollection.Controllers
         [HttpGet("Books/{bookId}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(BookDbEntity))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetBooksAsync(int bookId)
+        public async Task<IActionResult> GetBookAsync(int bookId)
         {
             var book = await _bookService.FindBookAsync(bookId);
 

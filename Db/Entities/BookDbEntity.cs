@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Runtime.InteropServices;
 
 namespace BookCollection.Db.Entities
 {
@@ -15,7 +16,7 @@ namespace BookCollection.Db.Entities
         [Required]
         public int Year { get; set; }
 
-        [Required(AllowEmptyStrings = false)]
+        [StringLength(256, MinimumLength = 1)]
         public string? Publisher { get; set; }
         public string? Description { get; set; }
     }

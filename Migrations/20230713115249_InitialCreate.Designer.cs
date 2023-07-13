@@ -5,12 +5,12 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-#nullable disable
+#nullable enable
 
 namespace BookCollection.Migrations
 {
     [DbContext(typeof(BookCollectionDbContext))]
-    [Migration("20230713082625_InitialCreate")]
+    [Migration("20230713115249_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -32,8 +32,8 @@ namespace BookCollection.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Publisher")
-                        .IsRequired()
+                    b.Property<string?>("Publisher")
+                        .HasMaxLength(256)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Title")
