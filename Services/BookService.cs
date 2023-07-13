@@ -44,5 +44,10 @@ namespace BookCollection.Services
         {
             return await dbService.FindBookAsync(bookId);
         }
+
+        public async Task<bool> DeleteBookAsync(int bookId)
+        {
+            return await dbService.DeleteBookAsync(bookId);
+        }
     }
 }

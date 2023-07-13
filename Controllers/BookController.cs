@@ -60,7 +60,6 @@ namespace BookCollection.Controllers
         [BookIdFilter]
         [HttpGet("Books/{bookId}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(BookDbEntity))]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetBooksAsync(int bookId)
         {
@@ -72,6 +71,22 @@ namespace BookCollection.Controllers
             }
 
             return Ok(book);
+        }
+
+        [BookIdFilter]
+        [HttpDelete("Books/{bookId}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> DeleteBookAsync(int bookId)
+        {
+            var deleted = await _bookService.DeleteBookAsync(bookId);
+
+            if (!deleted)
+            {
+                return NotFound();
+            }
+
+            return NoContent();
         }
 
         private bool QueryIsValid(string? author, int? year, string? publisher)

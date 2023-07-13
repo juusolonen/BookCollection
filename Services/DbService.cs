@@ -45,5 +45,21 @@ namespace BookCollection.Services
         {
             return await _context.Books.FindAsync(bookId);
         }
+
+        public async Task<bool> DeleteBookAsync(int bookId)
+        {
+            var bookToDelete = await FindBookAsync(bookId);
+
+            if (bookToDelete == null) 
+            {
+                return false;
+            }
+
+             _context.Remove(bookToDelete);
+
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
     }
 }
