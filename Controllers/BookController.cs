@@ -1,3 +1,5 @@
+using BookCollection.Db.Entities;
+using BookCollection.Middlewares;
 using BookCollection.Models.Requests;
 using BookCollection.Models.Responses;
 using BookCollection.Services;
@@ -47,12 +49,29 @@ namespace BookCollection.Controllers
         {
             if (!QueryIsValid(author, year, publisher))
             {
-              return  BadRequest();
+                return BadRequest();
             }
 
             var books = await _bookService.GetBooksAsync(author, year, publisher);
 
             return Ok(books);
+        }
+
+        [BookIdFilter]
+        [HttpGet("Books/{bookId}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(BookDbEntity))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetBooksAsync(int bookId)
+        {
+            var book = await _bookService.FindBookAsync(bookId);
+
+            if (book == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(book);
         }
 
         private bool QueryIsValid(string? author, int? year, string? publisher)

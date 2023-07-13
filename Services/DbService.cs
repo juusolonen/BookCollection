@@ -40,5 +40,10 @@ namespace BookCollection.Services
 
             return await query.ToArrayAsync();
         }
+
+        public async Task<BookDbEntity> FindBookAsync(int bookId)
+        {
+            return await _context.Books.FindAsync(bookId);
+        }
     }
 }
