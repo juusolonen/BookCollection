@@ -5,7 +5,7 @@ A simple RESTful backend for managing a book collection
 ### To compile and run
 
 1. Download and install .NET SDK version 7.0.306 https://dotnet.microsoft.com/en-us/download/dotnet/7.0
-2. Navigate to project root `BookCollection/` and run `dotnet run`
+2. Navigate to project root `BookCollection/` and run `dotnet run`. If you want to clear the database on startup, run `dotnet run ClearDb`
 3. Send HTTP requests to `http://localhost:9000`
 
 

@@ -7,16 +7,21 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//Delete dbFile for a fresh start every time
-try
+if (args.Length > 0 && args[0] == "ClearDb")
 {
-    string path = Directory.GetCurrentDirectory();
-    string dbFile = Directory.GetFiles(path, "*.db").First();
-    File.Delete(dbFile);
-} catch
-{
-    //No file found, no need to do anything
+    //Delete dbFile for a fresh start every time
+    try
+    {
+        string path = Directory.GetCurrentDirectory();
+        string dbFile = Directory.GetFiles(path, "*.db").First();
+        File.Delete(dbFile);
+    }
+    catch
+    {
+        //No file found, no need to do anything
+    }
 }
+
 
 
 builder.Services.AddDbContext<BookCollectionDbContext>(options =>
